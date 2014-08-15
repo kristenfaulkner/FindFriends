@@ -9,8 +9,8 @@ their location automatically every time they sign into the app.
 
 Version 2.0: (features to be implemented)
 
-- Allow the ability for users to add friends, and only display the location of their friends.
-Furthermore, a user's location will only be visible to their friends.
+- Allow the ability for users to add friends. Only show a user's friends on the map,
+ and only allow a user's location to be visible to their friends.
 
 - Connect with Facebook API and import a user's friends
 
