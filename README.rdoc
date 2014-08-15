@@ -13,7 +13,6 @@ Version 2.0: (features to be implemented)
 
 - Connect with Facebook API and import a user's friends
 
-- Have the map update a user's location in real time (using their phone/device's IP address instead of getting it every time they log into the app). This is trivial with the Google Map API,
-but updating the map in real time will require Backbone.js.
+- Have the map update a user's location in real time (using their phone/device's IP address instead of getting it every time they log into the app). This is trivial with the Google Map API, but updating the map in real time will require Backbone.js.
 
 The app currently uses SQLlite3 for its database, and the seed data users are located in San Francisco.
