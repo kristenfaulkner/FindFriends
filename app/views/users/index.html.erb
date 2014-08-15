@@ -1,0 +1,97 @@
+<div id="map-canvas">
+</div>
+
+
+
+<script type="application/json" id="bootstrapped_users_json">
+    {"users": <%= @users.to_json.html_safe %> }
+</script>
+
+<script>
+  users = JSON.parse($("#bootstrapped_users_json").html())["users"];
+
+  function getLocation() {
+      {
+          if (navigator.geolocation)
+          {
+              var options = {
+                  enableHighAccuracy: true,
+                  timeout: 5000,
+                  maximumAge: 0
+              };
+              navigator.geolocation.getCurrentPosition( success, error,options);
+          }
+          else
+          { x.innerHTML= "Geolocation is not supported by this browser."; }
+      }
+  }
+
+  function error(e) {
+  console.log("error code:" + e.code + 'message: ' + e.message );
+  }
+
+  function success(position) {
+     var  lat  = position.coords.latitude;
+     var  lng =  position.coords.longitude;
+
+
+     var  myLocation =   new google.maps.LatLng(lat, lng);
+
+     var mapOptions = {
+           center: new google.maps.LatLng(myLocation.lat(),myLocation.lng()),
+          zoom: 13,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+     };
+
+     var map = new google.maps.Map(document.getElementById("map-canvas"),
+              mapOptions);
+
+     var infowindow = new google.maps.InfoWindow({
+        map: map,
+        position: myLocation
+      });
+
+     var image = {
+       url: 'http://www.pixeljoint.com/files/icons/full/cat__r177950541.gif',
+       // This marker is 20 pixels wide by 32 pixels tall.
+       size: new google.maps.Size(20, 32),
+       // The origin for this image is 0,0.
+       origin: new google.maps.Point(0,0),
+       // The anchor for this image is the base of the flagpole at 0,32.
+       anchor: new google.maps.Point(0, 32)
+     };
+
+     users.forEach(function(user) {
+       var myLatLng = new google.maps.LatLng(user.lat, user.lng);
+
+       if (id == user.id) {
+         var marker = new google.maps.Marker({
+             position: myLatLng,
+             map: map,
+             title:"me!",
+             icon: image
+         });
+
+       } else {
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title:"me!"
+        });
+       }
+
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.close();
+          var content_string = '<div class="infowindow">' + user.email + '</div>'
+          infowindow.setContent(content_string);
+          infowindow.open(map, marker);
+        });
+      });
+  }
+
+  $(function() {
+    getLocation();
+    id = window.current_user_id;
+  })
+
+</script>
